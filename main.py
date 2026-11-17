@@ -1,12 +1,13 @@
+import storage
 import analytics
 
 def main():
-    # Initial state for tracking features locally before merging files
-    expenses = [] 
+    expenses = storage.load_expenses()
     while True:
         print("\n=== Student Expense Tracker ===")
         print("1. Add Expense")
-        # Options 2 & 3 belong to Student 1's features
+        print("2. View All Expenses")
+        print("3. Delete Expense")
         print("4. Filter by Category")
         print("5. Check Budget Status")
         print("6. Exit")
@@ -16,11 +17,22 @@ def main():
             amount = float(input("Amount: "))
             category = input("Category (Food/Books/Travel): ")
             expenses.append({"amount": amount, "category": category})
+            storage.save_expenses(expenses)
+            print("Expense saved!")
+        elif choice == "2":
+            for i, exp in enumerate(expenses):
+                print(f"{i}. {exp['category']}: Rs.{exp['amount']}")
+        elif choice == "3":
+            idx = int(input("Enter index to delete: "))
+            if storage.delete_expense(expenses, idx):
+                print("Deleted!")
+            else:
+                print("Invalid index.")
         elif choice == "4":
             cat = input("Enter category to filter: ")
             filtered = analytics.filter_by_category(expenses, cat)
             for exp in filtered:
-                print(f"- {exp['category']}: ₹{exp['amount']}")
+                print(f"- {exp['category']}: Rs.{exp['amount']}")
         elif choice == "5":
             analytics.check_budget(expenses)
         elif choice == "6":
