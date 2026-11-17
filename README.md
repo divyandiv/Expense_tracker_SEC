@@ -1,3 +1,4 @@
+<img width="842" height="770" alt="Screenshot 2026-11-17 190423" src="https://github.com/user-attachments/assets/3653c06f-6b0a-45ea-a3b6-56f1280447b4" />
 # 💸 Student Expense Tracker
 
 A lightweight, modular Python application built to help students record daily expenses, organize spending by category, persist records locally in JSON format, and monitor monthly budget limits through both a **Command-Line Interface (CLI)** and a **Desktop Graphical User Interface (GUI)**.
