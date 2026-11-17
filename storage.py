@@ -10,3 +10,10 @@ def load_expenses(filename="expenses.json"):
             return json.load(f)
     except FileNotFoundError:
         return []
+def delete_expense(expenses, index):
+    if 0 <= index < len(expenses):
+        removed = expenses.pop(index)
+        print(f"Removed: {removed['category']} - ₹{removed['amount']}")
+        return True
+    print("Invalid index!")
+    return False
