@@ -1,4 +1,5 @@
 import storage
+import analytics
 
 def main():
     expenses = storage.load_expenses()
@@ -7,7 +8,9 @@ def main():
         print("1. Add Expense")
         print("2. View All Expenses")
         print("3. Delete Expense")
-        print("6. Exit") # Leaving gaps for Student 2's options
+        print("4. Filter by Category")
+        print("5. Check Budget Status")
+        print("6. Exit")
 
         choice = input("Enter choice: ")
         if choice == "1":
@@ -15,13 +18,23 @@ def main():
             category = input("Category (Food/Books/Travel): ")
             expenses.append({"amount": amount, "category": category})
             storage.save_expenses(expenses)
+            print("Expense saved!")
         elif choice == "2":
-            for idx, exp in enumerate(expenses):
-                print(f"{idx}. {exp['category']}: ₹{exp['amount']}")
+            for i, exp in enumerate(expenses):
+                print(f"{i}. {exp['category']}: Rs.{exp['amount']}")
         elif choice == "3":
             idx = int(input("Enter index to delete: "))
             if storage.delete_expense(expenses, idx):
-                storage.save_expenses(expenses)
+                print("Deleted!")
+            else:
+                print("Invalid index.")
+        elif choice == "4":
+            cat = input("Enter category to filter: ")
+            filtered = analytics.filter_by_category(expenses, cat)
+            for exp in filtered:
+                print(f"- {exp['category']}: Rs.{exp['amount']}")
+        elif choice == "5":
+            analytics.check_budget(expenses)
         elif choice == "6":
             print("Goodbye!")
             break
